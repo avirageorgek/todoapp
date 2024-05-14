@@ -40,6 +40,7 @@ const GenericTable = (props) => {
                           {row.title}
                         </TableCell>
                         <TableCell align="right">
+                            <label>{row.status ? "Completed" : "Active"}</label>
                             <Checkbox checked={row.status} onClick={(e) => {
                               dispatch(updateStatus(row.id))
                             }}  />

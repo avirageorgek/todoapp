@@ -8,6 +8,9 @@ import { addTodo } from "./redux/todoSlice";
 
 import TodoForm from './components/TodoForm/TodoForm';
 import GenericTable from './components/GenericTable/GenericTable';
+import CustomDropDown from './components/CustomDropDown/CustomDropDown';
+
+import {statusDropDownData} from "./utils/genericData";
 
 import * as Yup from 'yup';
 
@@ -16,9 +19,20 @@ import * as Yup from 'yup';
 import './App.css'
 
 function App() {
-  const todo = useSelector((store) => store.todo);
-  console.log(todo);
+  let todo = useSelector((store) => store.todo);
+  let [tableList, setTableList] = useState(todo.todoList.map((item) => {
+    return createData(item.id, item.title, item.status);
+  }));
+  
+  //console.log(todo);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setTableList(todo.todoList.map((item) => {
+      return createData(item.id, item.title, item.status);
+    }));
+    
+  }, [todo]);
 
   function createData(
     id,
@@ -28,9 +42,24 @@ function App() {
     return { id, title, status };
   }
   
-  const rows = todo.todoList.map((item) => {
-    return createData(item.id, item.title, item.status);
-  });
+  // let rows = todo.todoList.map((item) => {
+  //   return createData(item.id, item.title, item.status);
+  // });
+
+  const filterChangeHandler = (e) => {
+    alert("Changed");
+    if(e.target.value === -1) {
+      todo = useSelector((store) => store.todo);
+      rows = todo.todoList.map((item) => {
+        return createData(item.id, item.title, item.status);
+      });
+    } else {
+      rows = todo.todoList.filter((item) => {
+        return item.status === e.target.value;
+      });
+    }
+    
+  }
 
   return (
     <>
@@ -45,7 +74,10 @@ function App() {
             </Grid>
 
             <Grid item xs={12}>
-              <GenericTable tableData={rows} />
+              <div>
+                <CustomDropDown dropDownValues={statusDropDownData} changeHandler={filterChangeHandler}/>
+              </div>
+              <GenericTable tableData={tableList} />
             </Grid>
           </Grid>  
         </Grid>  
