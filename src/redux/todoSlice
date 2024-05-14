@@ -1,0 +1,66 @@
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+    todoList: [],
+};
+
+export const todoSlice = createSlice({
+    name: "todo",
+    initialState,
+    reducers: {
+        
+        addTodo: (state, action) => {
+            state.todoList = [
+                ...state.todoList,
+                action.payload
+            ];
+        },
+        deleteTodo: (state,action) => {
+            let newData = state.todoList.filter((item) => {
+                return item.id !== action.payload
+            });
+
+            state.todoList = newData;
+        },
+        updateStatus: (state, action) => {
+            let newData = state.todoList.map((item) => {
+                if(item.id === action.payload) {
+                    console.log("Mapping", item)
+                    return {
+                        ...item,
+                        status: !item.status
+                    }
+                }
+                return  item;
+            });
+            console.log("New Data: ",  newData);
+            state.todoList = newData;
+        }
+        // updateSuccess: (state, action) => {
+        //     state.currentUser = action.payload;
+        //     state.loading = false;
+        //     state.error = null; 
+        // },
+        // deleteSuccess: (state) => {
+        //     state.currentUser = null;
+        //     state.loading = false;
+        //     state.error = null;
+        // },
+        // deleteFailure: (state, action) => {
+        //     state.error = action.payload;
+        // },
+        // signOutSuccess: (state) => {
+        //     state.currentUser = null;
+        //     state.loading = false;
+        //     state.error = null;
+        // },
+        // signOutFailure: (state, action) => {
+        //     state.error = action.payload;
+        // }
+        
+    }
+});
+
+export const {addTodo, deleteTodo, updateStatus}  = todoSlice.actions;
+
+export default todoSlice.reducer;
