@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Button from '@mui/material/Button';
 
 import TodoForm from './components/TodoForm/TodoForm';
-import GenericTable from './components/GenericTable/GenericTable';
+import TodoTable from './components/TodoTable/TodoTable';
 import CustomDropDown from './components/CustomDropDown/CustomDropDown';
 import {statusDropDownData} from "./utils/genericData";
 import './App.css'
@@ -63,17 +63,14 @@ function App() {
         </Grid>
         <Grid item sm={0} md={10}>
           <Grid container rowSpacing={2}>
-            <Grid item xs={12}>
-              <Button variant="contained" onClick={handleOpen}>Add Todo</Button>
-              <TodoForm open={open} handleClose={handleClose}/>
-            </Grid>
-
-            <Grid item xs={12} display="flex" direction="column" justifyContent="center" 
-            alignItems="top">
-              <div style={{display: "flex", direction: "row", justifyContent: "right"}}>
+            <Grid item xs={12} >
+              
+              <div style={{display: "flex", direction: "row", justifyContent: "space-between"}}>
+                <Button variant="contained" onClick={handleOpen}>Add Todo</Button>
+                <TodoForm open={open} handleClose={handleClose}/>
                 <CustomDropDown default={-1} dropDownValues={statusDropDownData} changeHandler={filterChangeHandler}/>
               </div>
-              <GenericTable tableData={tableList} />
+              <TodoTable tableData={tableList} />
             </Grid>
           </Grid>  
         </Grid>  

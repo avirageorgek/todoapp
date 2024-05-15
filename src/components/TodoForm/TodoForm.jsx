@@ -37,13 +37,14 @@ const TodoForm = (props) => {
             .min(5, 'Must be 5 characters or more')
             .required('Please enter a title name.'),
         }),
-        onSubmit: values => {
+        onSubmit: (values, {resetForm}) => {
           console.log("Submited");
           dispatch(addTodo({
             id: uuidv4(),
             title: values.title,
             status: false
           }));
+          resetForm();
           props.handleClose();
         },
     
