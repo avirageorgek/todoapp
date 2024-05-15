@@ -1,15 +1,10 @@
 import { useState, useEffect } from 'react'
 import Grid from '@mui/material/Grid';
-
-
-import { useFormik } from 'formik';
 import { useSelector, useDispatch } from "react-redux";
-import { addTodo } from "./redux/todoSlice";
 
 import TodoForm from './components/TodoForm/TodoForm';
 import GenericTable from './components/GenericTable/GenericTable';
 import CustomDropDown from './components/CustomDropDown/CustomDropDown';
-
 import {statusDropDownData} from "./utils/genericData";
 
 import * as Yup from 'yup';
@@ -21,6 +16,7 @@ import './App.css'
 function App() {
   let todo = useSelector((store) => store.todo);
   let [tableList, setTableList] = useState(todo.todoList.map((item) => {
+    console.log("Setting state")
     return createData(item.id, item.title, item.status);
   }));
   
@@ -47,16 +43,16 @@ function App() {
   // });
 
   const filterChangeHandler = (e) => {
-    alert("Changed");
     if(e.target.value === -1) {
-      todo = useSelector((store) => store.todo);
-      rows = todo.todoList.map((item) => {
+      
+      setTableList(todo.todoList.map((item) => {
         return createData(item.id, item.title, item.status);
-      });
+      }));
     } else {
-      rows = todo.todoList.filter((item) => {
+      let filteredList = todo.todoList.filter((item) => {
         return item.status === e.target.value;
       });
+      setTableList(filteredList);
     }
     
   }
@@ -74,7 +70,7 @@ function App() {
             </Grid>
 
             <Grid item xs={12}>
-              <div>
+              <div style={{display: "flex", direction: "row", justifyContent: "right"}}>
                 <CustomDropDown dropDownValues={statusDropDownData} changeHandler={filterChangeHandler}/>
               </div>
               <GenericTable tableData={tableList} />

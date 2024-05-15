@@ -31,32 +31,40 @@ const GenericTable = (props) => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {props.tableData.map((row) => (
-                      <TableRow
-                        key={row.title}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                      >
-                        <TableCell component="th" scope="row">
-                          {row.title}
-                        </TableCell>
-                        <TableCell align="right">
-                            <label>{row.status ? "Completed" : "Active"}</label>
-                            <Checkbox checked={row.status} onClick={(e) => {
-                              dispatch(updateStatus(row.id))
-                            }}  />
-                            {row.status}
-                        </TableCell>
-                        <TableCell align='right'>
-                            <IconButton aria-label="delete" color="primary" onClick={
-                                (e) => {
-                                    onDeleteHandler(row.id);
-                                }
-                            }>
-                                <MdDelete />
-                            </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                    {
+                      props.tableData.length > 0 ?
+                        
+                          props.tableData.map((row) => (
+                            <TableRow
+                              key={row.title}
+                              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                              <TableCell component="th" scope="row">
+                                {row.title}
+                              </TableCell>
+                              <TableCell align="right">
+                                {row.status}
+                                  <label>{row.status ? "Completed" : "Active"}</label>
+                                  <Checkbox checked={row.status} onClick={(e) => {
+                                    dispatch(updateStatus(row.id))
+                                  }}  />
+                                  {row.status}
+                              </TableCell>
+                              <TableCell align='right'>
+                                  <IconButton aria-label="delete" color="primary" onClick={
+                                      (e) => {
+                                          onDeleteHandler(row.id);
+                                      }
+                                  }>
+                                      <MdDelete />
+                                  </IconButton>
+                              </TableCell>
+                            </TableRow>
+                          ))
+                       :
+                        <h4>Sorry, no items to display</h4>
+                      }  
+
                   </TableBody>
                 </Table>
             </TableContainer>
