@@ -11,7 +11,7 @@ const CustomDropDown = (props) => {
                 <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={props.default}
+                defaultValue={props.default}
                 label="Filter"
                 onChange={
                     (e) => {

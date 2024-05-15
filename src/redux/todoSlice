@@ -22,20 +22,19 @@ export const todoSlice = createSlice({
 
             state.todoList = newData;
         },
-        updateStatus: (state, action) => {
+        updateTodo: (state, action) => {
+
             let newData = state.todoList.map((item) => {
-                if(item.id === action.payload) {
-                    console.log("Mapping", item)
+                if(item.id === action.payload.id) {
                     return {
                         ...item,
-                        status: !item.status
+                        [action.payload.element]: action.payload.value
                     }
                 }
                 return  item;
             });
-            console.log("New Data: ",  newData);
             state.todoList = newData;
-        }
+        },
         // updateSuccess: (state, action) => {
         //     state.currentUser = action.payload;
         //     state.loading = false;
@@ -61,6 +60,6 @@ export const todoSlice = createSlice({
     }
 });
 
-export const {addTodo, deleteTodo, updateStatus}  = todoSlice.actions;
+export const {addTodo, deleteTodo, updateTodo}  = todoSlice.actions;
 
 export default todoSlice.reducer;

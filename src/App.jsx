@@ -1,24 +1,22 @@
 import { useState, useEffect } from 'react'
 import Grid from '@mui/material/Grid';
 import { useSelector, useDispatch } from "react-redux";
+import Button from '@mui/material/Button';
 
 import TodoForm from './components/TodoForm/TodoForm';
 import GenericTable from './components/GenericTable/GenericTable';
 import CustomDropDown from './components/CustomDropDown/CustomDropDown';
 import {statusDropDownData} from "./utils/genericData";
-
-import * as Yup from 'yup';
-
-// import {getTodoList} from "./utils/todoAction";
-
 import './App.css'
 
 function App() {
   let todo = useSelector((store) => store.todo);
   let [tableList, setTableList] = useState(todo.todoList.map((item) => {
-    console.log("Setting state")
     return createData(item.id, item.title, item.status);
   }));
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   
   //console.log(todo);
   const dispatch = useDispatch();
@@ -66,12 +64,14 @@ function App() {
         <Grid item sm={0} md={10}>
           <Grid container rowSpacing={2}>
             <Grid item xs={12}>
-              <TodoForm />
+              <Button variant="contained" onClick={handleOpen}>Add Todo</Button>
+              <TodoForm open={open} handleClose={handleClose}/>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} display="flex" direction="column" justifyContent="center" 
+            alignItems="top">
               <div style={{display: "flex", direction: "row", justifyContent: "right"}}>
-                <CustomDropDown dropDownValues={statusDropDownData} changeHandler={filterChangeHandler}/>
+                <CustomDropDown default={-1} dropDownValues={statusDropDownData} changeHandler={filterChangeHandler}/>
               </div>
               <GenericTable tableData={tableList} />
             </Grid>
