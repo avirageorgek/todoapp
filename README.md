@@ -1,8 +1,15 @@
-# React + Vite
+# React Project
+React version used is 18.2.0 . Which makes use of the power of fuctional components
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# How to run 
+Go to the root folder and run "npm run dev"
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Libraries used
+formik: 2.4.6
+react: 18.2.0
+react-dom: 18.2.0
+react-icons: 5.2.1
+react-redux: 9.1.2
+redux-persist: 6.0.0
+uuid: 9.0.1
+yup: 1.4.0
